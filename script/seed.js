@@ -12,8 +12,15 @@ async function seed() {
     const ty = await User.create({
       username: 'tylen',
       firstName: 'tylen',
-      lastName: 'carroll',
+      lastName: 'c',
       email: 'mail@gmail.com',
+      password: '123',
+    });
+    const zayne = await User.create({
+      username: 'zayne',
+      firstName: 'zayne',
+      lastName: 'f',
+      email: 'mailmail@gmail.com',
       password: '123',
     });
     const kt = await User.create({
@@ -23,6 +30,7 @@ async function seed() {
       email: 'maill@gmail.com',
       password: '123',
     });
+
     // create mock stats
     const tyStat = await Stat.create({
       height: 190,
@@ -91,7 +99,6 @@ async function seed() {
     // users and workouts
     await ty.addWorkouts(armWorkout, backWorkout);
     await kt.addWorkout(legWorkout);
-
 
     console.log(`seeded successfully`);
   } catch (err) {

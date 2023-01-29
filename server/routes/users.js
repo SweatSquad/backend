@@ -30,14 +30,4 @@ router.get('/my-profile', requireToken, async (req, res, next) => {
   }
 });
 
-// router.get('/my-profile', requireToken, async (req, res, next) => {
-//   try {
-//     // const users = await User.findAll();
-//     // res.send(users);
-//     res.status(200).json(req.user);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 module.exports = router;
