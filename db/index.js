@@ -6,17 +6,12 @@ const User = require('./models/User');
 const Stat = require('./models/Stat');
 const Exercise = require('./models/Exercise');
 const Workout = require('./models/Workout');
-const Task = require('./models/Task');
 
 //associations go here!
 
 // stats
 User.hasOne(Stat);
 Stat.belongsTo(User);
-
-// task
-Task.belongsTo(User);
-User.hasMany(Task);
 
 // exercises
 User.belongsToMany(Exercise, { through: 'userExercise' });
@@ -36,6 +31,5 @@ module.exports = {
     Stat,
     Exercise,
     Workout,
-    Task,
   },
 };
