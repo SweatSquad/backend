@@ -23,7 +23,7 @@ if (process.env.DATABASE_URL) {
 
 //we can add the .env to the gitignore and store the database password below (cna be different for each use
 // but we will probably have to reconfigure this when we figure out deplotment)
-const db = new Sequelize(`fit`, 'postgres', '7aa7aa7a8a', {
+const db = new Sequelize(databaseName, 'postgres', '7aa7aa7a8a', {
   host: 'localhost',
   dialect: 'postgres',
   logging: false,
