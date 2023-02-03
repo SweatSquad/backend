@@ -51,6 +51,11 @@ User.prototype.generateToken = function () {
  */
 
 User.authenticate = async function ({ username, password }) {
+  if (!username || !password ) {
+    const error = Error("Not all required fields are entered");
+    error.status = 400;
+    throw error;
+  }
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error('Incorrect username/password');
@@ -74,6 +79,38 @@ User.findByToken = async function (token) {
     throw error;
   }
 };
+
+User.registerUser = async function ({username, firstName, lastName, email, password}){
+  
+  try{
+
+    if (!username || !email || !password){
+      throw "Not all required fields are entered"
+    }
+
+    const duplicateName = await User.findOne({ where: { username } })
+
+    if (duplicateName){
+      throw "Duplicate username"
+    }
+
+    const duplicateEmail = await User.findOne({ where: { email } })
+
+    if (duplicateEmail){
+      throw "Duplicate email address"
+    }
+
+    const userObject = { username, firstName, lastName, email, password }
+    return User.create(userObject)    
+
+  } catch (ex) {
+    console.log(ex);
+    const error = Error(ex);
+    error.status = 400;
+    throw error;
+  }
+
+}
 
 /**
  * hooks
