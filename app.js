@@ -3,11 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const { loggerFile, logEvents } = require('./server/middleware/logger')
 
 const api = require('./server/routes/index');
 const cors = require('cors');
 
 const app = express();
+app.use(loggerFile)
 app.use(cors());
 
 app.use(logger('dev'));
@@ -39,6 +41,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   console.error(err);
   console.error(err.stack);
+  logEvents(`${err.name}: ${err.message}\t${req.method}\t${req.url}\t${req.headers.origin}`, 'errorLog.log')
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
